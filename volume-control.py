@@ -17,7 +17,6 @@ volume = interface.QueryInterface(IAudioEndpointVolume)
 # volume.GetMute()
 # volume.GetMasterVolumeLevel()
 vol_range = volume.GetVolumeRange()
-# volume.SetMasterVolumeLevel(-20.0, None)
 min_vol = vol_range[0]
 max_vol = vol_range[1]
 
@@ -62,6 +61,7 @@ while True:
         # VOLUME RANGE : -65.25 to 0
 
         vol = np.interp(length, [15, 200], [min_vol, max_vol])
+        volume.SetMasterVolumeLevel(vol, None)
         print(vol)
 
     cTime = time.time()
