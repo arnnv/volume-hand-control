@@ -38,8 +38,9 @@ while True:
     img = detector.findHands(img)
     lmList = detector.findPosition(img, draw=False)
 
-    
-    cv2.rectangle(img, (50, 150), (80, 400), (0, 255, 0), 3)
+    vol = 0
+    volBar = 0
+    volPer = 0
 
     if len(lmList) != 0:
         # print(lmList[4], lmList[8])
@@ -67,15 +68,18 @@ while True:
         volBar = np.interp(vol, [min_vol, max_vol], [400, 150])
         volPer = np.interp(vol, [min_vol, max_vol], [0, 100])
 
+        cv2.rectangle(img, (50, int(volBar)), (80, 400), (0, 255, 0), cv2.FILLED)
+
         volume.SetMasterVolumeLevel(vol, None)
         # print(vol)
-        cv2.rectangle(img, (50, int(volBar)), (80, 400), (0, 255, 0), cv2.FILLED)
+    
+    cv2.rectangle(img, (50, 150), (80, 400), (0, 255, 0), 3)
 
     cTime = time.time()
     fps = 1 / (cTime - pTime)
     pTime = cTime
 
-    cv2.putText(img, f"FPS: {int(fps)}", (10, 40),
+    cv2.putText(img, f"{int(volPer)}%", (45, 440),
                 cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
 
     cv2.imshow("Image", img)
