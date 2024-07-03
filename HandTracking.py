@@ -41,7 +41,7 @@ class HandDetector:
             for i, lm in enumerate(myhand.landmark):
                 h, w, c = img.shape
                 cx, cy = int(lm.x * w), int(lm.y * h)
-                lmList.append([id, cx, cy])
+                lmList.append([i, cx, cy])
 
                 if draw:
                     cv2.circle(img, (cx, cy), 15, (255, 0, 255), cv2.FILLED)
