@@ -4,7 +4,7 @@ import mediapipe as mp
 import numpy as np
 import HandTracking as ht
 
-cam_width, cam_height = 1280, 720
+cam_width, cam_height = 720, 480
 
 
 cap = cv2.VideoCapture(0)
@@ -23,6 +23,12 @@ while True:
     
     if len(lmList) != 0:
         print(lmList[4], lmList[8])
+
+        x1, y1 = lmList[4][1], lmList[4][2]
+        x2, y2 = lmList[8][1], lmList[8][2]
+
+        cv2.circle(img, (x1, y1), 12, (255, 0, 255), cv2.FILLED)
+        cv2.circle(img, (x2, y2), 12, (255, 0, 255), cv2.FILLED)
 
     cTime = time.time()
     fps = 1 / (cTime - pTime)
