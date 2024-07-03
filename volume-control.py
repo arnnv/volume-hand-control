@@ -38,6 +38,9 @@ while True:
     img = detector.findHands(img)
     lmList = detector.findPosition(img, draw=False)
 
+    
+    cv2.rectangle(img, (50, 150), (80, 400), (0, 255, 0), 3)
+
     if len(lmList) != 0:
         # print(lmList[4], lmList[8])
 
@@ -61,8 +64,12 @@ while True:
         # VOLUME RANGE : -65.25 to 0
 
         vol = np.interp(length, [15, 200], [min_vol, max_vol])
+        volBar = np.interp(vol, [min_vol, max_vol], [400, 150])
+        volPer = np.interp(vol, [min_vol, max_vol], [0, 100])
+
         volume.SetMasterVolumeLevel(vol, None)
-        print(vol)
+        # print(vol)
+        cv2.rectangle(img, (50, int(volBar)), (80, 400), (0, 255, 0), cv2.FILLED)
 
     cTime = time.time()
     fps = 1 / (cTime - pTime)
